@@ -1,6 +1,7 @@
-"""Plans + Google login for BloomClipping.
+"""Plans + Google login + clip credits for BloomClipping.
 
-Plans (INR / month):
+Plans:
+  free      — ₹0   — 5 clip credits (one-time pool)
   daily10   — ₹19  — 10 clips / day
   fifty     — ₹99  — 50 clips / day
   unlimited — ₹199 — unlimited clips
@@ -25,12 +26,26 @@ from pathlib import Path
 from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.responses import JSONResponse, RedirectResponse
 
+FREE_CREDITS = 5
+
 PLANS = {
+    'free': {
+        'id': 'free',
+        'name': 'Free',
+        'price_inr': 0,
+        'clips_per_day': None,
+        'credits': FREE_CREDITS,
+        'credit_mode': 'pool',
+        'blurb': '5 free clip credits — try BloomClipping with no payment.',
+        'highlight': False,
+    },
     'daily10': {
         'id': 'daily10',
         'name': 'Daily 10',
         'price_inr': 19,
         'clips_per_day': 10,
+        'credits': 0,
+        'credit_mode': 'daily',
         'blurb': '10 clips a day — for light posting.',
         'highlight': False,
     },
@@ -39,6 +54,8 @@ PLANS = {
         'name': 'Fifty',
         'price_inr': 99,
         'clips_per_day': 50,
+        'credits': 0,
+        'credit_mode': 'daily',
         'blurb': '50 clips a day — for serious creators.',
         'highlight': True,
     },
@@ -47,6 +64,8 @@ PLANS = {
         'name': 'Unlimited',
         'price_inr': 199,
         'clips_per_day': None,
+        'credits': 0,
+        'credit_mode': 'unlimited',
         'blurb': 'Unlimited clips — no daily cap.',
         'highlight': False,
     },
@@ -172,7 +191,21 @@ def _public_user(user: dict | None) -> dict | None:
         return None
     plan = PLANS.get(user.get('plan') or '')
     usage = (user.get('usage') or {}).get(_today(), 0)
+    mode = (plan or {}).get('credit_mode')
     limit = plan['clips_per_day'] if plan else 0
+    credits = int(user.get('credits') or 0)
+    if mode == 'pool':
+        left_today = credits
+        left_label = 'credits'
+    elif mode == 'unlimited':
+        left_today = None
+        left_label = 'unlimited'
+    elif mode == 'daily':
+        left_today = max(0, (limit or 0) - usage)
+        left_label = 'today'
+    else:
+        left_today = credits
+        left_label = 'credits'
     return {
         'id': user['id'],
         'email': user.get('email') or '',
@@ -182,9 +215,12 @@ def _public_user(user: dict | None) -> dict | None:
         'plan': user.get('plan'),
         'plan_name': plan['name'] if plan else None,
         'plan_until': user.get('plan_until'),
-        'clips_per_day': limit,
-        'clips_used_today': usage,
-        'clips_left_today': None if limit is None and plan else (max(0, (limit or 0) - usage) if plan else 0),
+        'credit_mode': mode,
+        'credits': credits,
+        'clips_per_day': limit if mode == 'daily' else None,
+        'clips_used_today': usage if mode == 'daily' else 0,
+        'clips_left_today': left_today,
+        'left_label': left_label,
     }
 
 
@@ -238,6 +274,8 @@ def _upsert_google_user(data: Path, profile: dict) -> dict:
             u['google_sub'] = sub or u.get('google_sub')
             u['provider'] = 'google'
             u['updated'] = _now()
+            if not u.get('plan'):
+                activate_plan(u, 'free')
             _save_user(data, u)
             return u
     uid = 'g_' + hashlib.sha256((sub or email or secrets.token_hex(8)).encode()).hexdigest()[:16]
@@ -250,10 +288,12 @@ def _upsert_google_user(data: Path, profile: dict) -> dict:
         'provider': 'google',
         'plan': None,
         'plan_until': None,
+        'credits': 0,
         'usage': {},
         'created': _now(),
         'updated': _now(),
     }
+    activate_plan(user, 'free')
     _save_user(data, user)
     return user
 
@@ -262,6 +302,9 @@ def _demo_user(data: Path) -> dict:
     uid = 'local_demo'
     user = _load_user(data, uid)
     if user:
+        if not user.get('plan'):
+            activate_plan(user, 'free')
+            _save_user(data, user)
         return user
     user = {
         'id': uid,
@@ -271,10 +314,12 @@ def _demo_user(data: Path) -> dict:
         'provider': 'demo',
         'plan': None,
         'plan_until': None,
+        'credits': 0,
         'usage': {},
         'created': _now(),
         'updated': _now(),
     }
+    activate_plan(user, 'free')
     _save_user(data, user)
     return user
 
@@ -283,24 +328,39 @@ def activate_plan(user: dict, plan_id: str) -> dict:
     plan = PLANS.get(plan_id)
     if not plan:
         raise HTTPException(400, 'Unknown plan.')
-    until = datetime.now(timezone.utc).timestamp() + PLAN_DAYS * 86400
     user['plan'] = plan_id
-    user['plan_until'] = until
     user['updated'] = _now()
+    mode = plan.get('credit_mode')
+    if mode == 'pool':
+        user['plan_until'] = None
+        if not user.get('free_credits_granted'):
+            user['credits'] = int(plan.get('credits') or FREE_CREDITS)
+            user['free_credits_granted'] = True
+        else:
+            user.setdefault('credits', 0)
+    elif mode == 'unlimited':
+        user['plan_until'] = datetime.now(timezone.utc).timestamp() + PLAN_DAYS * 86400
+    else:
+        user['plan_until'] = datetime.now(timezone.utc).timestamp() + PLAN_DAYS * 86400
     return user
 
 
 def plan_active(user: dict | None) -> dict | None:
     if not user or not user.get('plan'):
         return None
+    plan = PLANS.get(user['plan'])
+    if not plan:
+        return None
+    if plan.get('credit_mode') == 'pool' or plan.get('price_inr') == 0:
+        return plan
     until = user.get('plan_until') or 0
     if until and until < _now():
         return None
-    return PLANS.get(user['plan'])
+    return plan
 
 
 def guard_make(data: Path, request: Request, clip_count: int = 1) -> None:
-    """Guests stay unlimited (local studio). Active paid plans get a daily clip quota.
+    """Guests stay unlimited (local studio). Signed-in plans spend credits or daily quota.
     Set BLOOMCLIPPING_BILLING_REQUIRED=1 to require sign-in + plan before Make clips."""
     user = session_user(data, request)
     required = (os.environ.get('BLOOMCLIPPING_BILLING_REQUIRED') or '').strip() in ('1', 'true', 'yes')
@@ -308,9 +368,24 @@ def guard_make(data: Path, request: Request, clip_count: int = 1) -> None:
     if required and (not user or not plan):
         raise HTTPException(
             402,
-            'Sign in and pick a plan under Plans to make clips. Daily 10 ₹19 · Fifty ₹99 · Unlimited ₹199.',
+            'Sign in and pick a plan under Plans. Free = 5 credits · Daily 10 ₹19 · Fifty ₹99 · Unlimited ₹199.',
         )
     if not user or not plan:
+        return
+    need = max(1, int(clip_count or 1))
+    mode = plan.get('credit_mode')
+    if mode == 'unlimited':
+        return
+    if mode == 'pool':
+        credits = int(user.get('credits') or 0)
+        if credits < need:
+            raise HTTPException(
+                402,
+                f'No clip credits left ({credits} remaining). Free includes {FREE_CREDITS} clips — upgrade under Plans for more.',
+            )
+        user['credits'] = credits - need
+        user['updated'] = _now()
+        _save_user(data, user)
         return
     limit = plan.get('clips_per_day')
     if limit is None:
@@ -318,7 +393,6 @@ def guard_make(data: Path, request: Request, clip_count: int = 1) -> None:
     today = _today()
     usage = dict(user.get('usage') or {})
     used = int(usage.get(today) or 0)
-    need = max(1, int(clip_count or 1))
     if used + need > limit:
         left = max(0, limit - used)
         raise HTTPException(
@@ -449,20 +523,27 @@ def attach(app: FastAPI, data: Path) -> None:
             raise HTTPException(401, 'Sign in with Google first.')
         plan_id = str((body or {}).get('plan') or '')
         if plan_id not in PLANS:
-            raise HTTPException(400, 'Pick Daily 10, Fifty, or Unlimited.')
+            raise HTTPException(400, 'Pick Free, Daily 10, Fifty, or Unlimited.')
         cfg = _cfg(data)
         plan = PLANS[plan_id]
-        # Real money path: hand off to Razorpay payment link when configured
-        if cfg['razorpay_link'] and not (body or {}).get('confirm_demo'):
-            return {
-                'ok': False,
-                'needs_payment': True,
-                'checkout_url': cfg['razorpay_link'],
-                'plan': plan,
-                'message': 'Pay on Razorpay, then return and press Activate again with confirm after payment — or set demo mode for local testing.',
-            }
-        if not cfg['demo'] and not cfg['razorpay_link']:
-            raise HTTPException(400, 'Payments are not configured. Set BLOOMCLIPPING_RAZORPAY_LINK or enable demo billing.')
+        # Free never needs payment
+        if plan.get('price_inr', 0) > 0:
+            if cfg['razorpay_link'] and not (body or {}).get('confirm_demo'):
+                return {
+                    'ok': False,
+                    'needs_payment': True,
+                    'checkout_url': cfg['razorpay_link'],
+                    'plan': plan,
+                    'message': 'Pay on Razorpay, then return and choose the plan again — or use demo billing locally.',
+                }
+            if not cfg['demo'] and not cfg['razorpay_link']:
+                raise HTTPException(400, 'Payments are not configured. Set BLOOMCLIPPING_RAZORPAY_LINK or enable demo billing.')
         activate_plan(user, plan_id)
         _save_user(data, user)
-        return {'ok': True, 'me': _public_user(user), 'message': f'{plan["name"]} is active for {PLAN_DAYS} days.'}
+        if plan.get('credit_mode') == 'pool':
+            msg = f'Free plan active — {int(user.get("credits") or 0)} clip credits left.'
+        elif plan.get('credit_mode') == 'unlimited':
+            msg = f'{plan["name"]} is active for {PLAN_DAYS} days (unlimited clips).'
+        else:
+            msg = f'{plan["name"]} is active for {PLAN_DAYS} days.'
+        return {'ok': True, 'me': _public_user(user), 'message': msg}

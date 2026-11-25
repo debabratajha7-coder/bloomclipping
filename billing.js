@@ -52,12 +52,23 @@
       };
       return;
     }
-    const left = me.clips_per_day == null ? 'Unlimited' : (me.clips_left_today + ' left today');
+    let left = 'No plan yet';
+    if (me.plan_name) {
+      if (me.credit_mode === 'unlimited') left = me.plan_name + ' · Unlimited clips';
+      else if (me.credit_mode === 'pool') left = me.plan_name + ' · ' + (me.credits || 0) + ' credits left';
+      else left = me.plan_name + ' · ' + (me.clips_left_today ?? 0) + ' left today · ' + (me.clips_used_today || 0) + ' used';
+    }
+    const chip = me.credit_mode === 'unlimited'
+      ? '∞ credits'
+      : (me.credit_mode === 'pool'
+        ? ((me.credits || 0) + ' credits')
+        : (me.clips_left_today != null ? me.clips_left_today + ' today' : ''));
     box.innerHTML =
       '<div class="auth-row">' +
       (me.picture ? '<img class="auth-av" src="' + esc(me.picture) + '" alt="">' : '<span class="auth-av placeholder">✂</span>') +
       '<div><b>' + esc(me.name || 'Signed in') + '</b><small>' + esc(me.email) + '</small>' +
-      '<small>' + (me.plan_name ? esc(me.plan_name) + ' · ' + esc(left) + ' · ' + esc(me.clips_used_today || 0) + ' used' : 'No plan yet') + '</small></div></div>' +
+      '<small>' + esc(left) + '</small></div></div>' +
+      (chip ? '<div class="credit-chip" title="Clip credits">' + esc(chip) + '</div>' : '') +
       '<button type="button" class="secondary" id="auth-logout">Sign out</button>';
     const out = $('auth-logout');
     if (out) out.onclick = async () => {
@@ -77,16 +88,22 @@
     const active = state.me && state.me.plan;
     host.innerHTML = state.plans.map((p) => {
       const on = active === p.id;
-      const limit = p.clips_per_day == null ? 'Unlimited clips' : p.clips_per_day + ' clips a day';
+      const free = p.price_inr === 0 || p.credit_mode === 'pool';
+      let limit = 'Unlimited clips';
+      if (p.credit_mode === 'pool') limit = (p.credits || 5) + ' free clip credits';
+      else if (p.credit_mode === 'daily') limit = p.clips_per_day + ' clips a day';
+      const price = free
+        ? '<div class="plan-price"><b>₹0</b><span>forever</span></div>'
+        : '<div class="plan-price"><b>₹' + p.price_inr + '</b><span>/ month</span></div>';
       return (
-        '<article class="plan-card' + (p.highlight ? ' featured' : '') + (on ? ' on' : '') + '" data-plan="' + esc(p.id) + '">' +
-        (p.highlight ? '<span class="plan-badge">Popular</span>' : '') +
+        '<article class="plan-card' + (p.highlight ? ' featured' : '') + (free ? ' free' : '') + (on ? ' on' : '') + '" data-plan="' + esc(p.id) + '">' +
+        (p.highlight ? '<span class="plan-badge">Popular</span>' : (free ? '<span class="plan-badge free-badge">Free</span>' : '')) +
         '<h3>' + esc(p.name) + '</h3>' +
-        '<div class="plan-price"><b>₹' + p.price_inr + '</b><span>/ month</span></div>' +
+        price +
         '<p>' + esc(p.blurb) + '</p>' +
-        '<ul><li>' + esc(limit) + '</li><li>Local rendering on your Mac</li><li>Cancel anytime</li></ul>' +
+        '<ul><li>' + esc(limit) + '</li><li>Local rendering on your Mac</li><li>' + (free ? 'No card needed' : 'Cancel anytime') + '</li></ul>' +
         '<button type="button" class="' + (on ? 'secondary' : 'primary') + '" data-buy="' + esc(p.id) + '">' +
-        (on ? 'Current plan' : 'Choose ' + esc(p.name)) + '</button></article>'
+        (on ? 'Current plan' : (free ? 'Start free' : 'Choose ' + esc(p.name))) + '</button></article>'
       );
     }).join('');
     host.querySelectorAll('[data-buy]').forEach((btn) => {

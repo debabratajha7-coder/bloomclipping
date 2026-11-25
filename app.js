@@ -78,14 +78,13 @@ document.querySelectorAll('[data-view]').forEach(button => {
   button.onclick = () => {
     const view = button.dataset.view;
     document.querySelectorAll('[data-view]').forEach(nav => nav.classList.toggle('active', nav === button));
-    for (const key of ['editor', 'library', 'youtube', 'creators', 'plans']) {
+    for (const key of ['editor', 'library', 'youtube', 'creators']) {
       const el = $(key + '-view');
       if (el) el.hidden = key !== view;
     }
     if (view === 'library') refreshLibrary().catch(error => status(error.message));
     if (view === 'creators') loadCreators(true).catch(error => { $('creator-note').textContent = error.message; });
-    if (view === 'plans' && window.bloomBilling) window.bloomBilling.refresh();
-    if (view === 'youtube' || view === 'creators' || view === 'plans') window.scrollTo(0, 0);
+    if (view === 'youtube' || view === 'creators') window.scrollTo(0, 0);
   };
 });$('refresh-library').onclick=()=>refreshLibrary().catch(e=>status(e.message));
 request('/highlights').then(showHighlights).catch(e=>status(e.message));refreshLibrary().catch(e=>status(e.message));

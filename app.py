@@ -80,7 +80,7 @@ def cover_image(id:str):
  return FileResponse(path,media_type='image/jpeg')
 @app.get('/assets/{name}')
 def assets(name:str):
- if name not in ('app.js','style.css','choppity-ui.css','extras.js','transcripts.js','vision.js','report.js','studio.js','composer.js','composer.css','sidebar.js','library.js','right-bar.js','right-bar.css','editor.js','editor.css','capdraw.js','modes.js','modes.css','campaigns.js','campaigns.css','youtube-feed.js','youtube-feed.css','billing.js','hero.mp4'):raise HTTPException(404)
+ if name not in ('app.js','style.css','choppity-ui.css','extras.js','transcripts.js','vision.js','report.js','studio.js','composer.js','composer.css','sidebar.js','library.js','right-bar.js','right-bar.css','editor.js','editor.css','capdraw.js','modes.js','modes.css','campaigns.js','campaigns.css','youtube-feed.js','youtube-feed.css','hero.mp4'):raise HTTPException(404)
  return FileResponse(ROOT/name)
 @app.get('/text/{id}/{kind}')
 def text_file(id:str,kind:str):
@@ -308,12 +308,7 @@ def ai_found(moments,yt_words,duration):
  return out,('Your time' if any('snap' in m for m in moments) else 'AI answer')
 
 @app.post('/make')
-def make(b:dict, request: Request):
- try:
-  count=max(1,min(12,int((b or {}).get('count',4))))
- except Exception:count=1
- import billing as _billing
- _billing.guard_make(DATA,request,count)
+def make(b:dict):
  return start_make(b)
 
 def start_make(b, previous=None):
@@ -1048,8 +1043,6 @@ import timeline
 timeline.attach(app,DATA,state,probe)
 import studio_plans
 studio_plans.attach(app,DATA,probe)
-import billing
-billing.attach(app,DATA)
 
 if __name__=='__main__':
  lan=os.environ.get('BLOOMCLIPPING_LAN')=='1'      # phone remote: listen on the home network (PIN required, see phone.py); default is this PC only

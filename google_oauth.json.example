@@ -1,0 +1,5 @@
+{
+  "client_id": "YOUR_GOOGLE_OAUTH_CLIENT_ID.apps.googleusercontent.com",
+  "client_secret": "YOUR_GOOGLE_OAUTH_CLIENT_SECRET",
+  "_note": "Copy to data/google_oauth.json. In Google Cloud Console create an OAuth Web client and add authorized redirect URI: http://127.0.0.1:8770/auth/google/callback"
+}

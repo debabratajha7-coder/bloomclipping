@@ -138,7 +138,7 @@
       $('composer-change').onclick = () => { setAdvanced(true); open('options'); };
     }
     // remember what the person chose last time, so nobody has to open Advanced twice
-    const PREFS = 'neon-prefs';
+    const PREFS = 'bloom-prefs';
     const PREF_IDS = ['srcq', 'count', 'minlen', 'length', 'mode', 'language', 'aspect', 'resolution', 'accurate'];
     try {
       const saved = JSON.parse(localStorage.getItem(PREFS) || '{}');

@@ -174,7 +174,7 @@ def attach(app,DATA,state,probe):
             return url,None
         id=str(body.get('id',''));return '',source_path(id)
 
-    app.neon={'download':download,'save':save,'new_source':new_source}
+    app.bloom={'download':download,'save':save,'new_source':new_source}
 
     @app.get('/healthz')
     def health():

@@ -29,8 +29,8 @@ __pycache__/
 !docs/*.md
 !install.ps1
 !install.sh
-!NeonClipping-Setup.bat
 !BloomClipping-Setup.bat
+!bloom_mcp.py
 !docs/.nojekyll
 !docs/*.mp4
 

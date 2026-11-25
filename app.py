@@ -319,7 +319,7 @@ def make(b:dict, request: Request):
 def start_make(b, previous=None):
  """One click. Short video: download, smart highlights, export. Long video (PeakCut-style): download AUDIO only, pick moments from
  audio + transcript, then fetch just those video sections. Clips stream into state[job]['clips']."""
- url,src0=app.neon['new_source'](b);save=app.neon['save']
+ url,src0=app.bloom['new_source'](b);save=app.bloom['save']
  import storage      # disk almost full is the commonest silent failure: free old partial downloads first, then say so plainly
  free_=shutil.disk_usage(DATA).free
  if free_<15*1024**3:
@@ -527,7 +527,7 @@ def start_make(b, previous=None):
     save(job,{'engine':engine+' (audio-first)','stage':'Fetching only the chosen sections','progress':.58,'candidates':len(found)})
    elif not cached:
     if url:
-     save(job,{'stage':'Downloading source ('+quality_label(src_h)+')','progress':.02});sid,p=app.neon['download'](url,job,src_h)
+     save(job,{'stage':'Downloading source ('+quality_label(src_h)+')','progress':.02});sid,p=app.bloom['download'](url,job,src_h)
     else:sid,p=src0.stem,src0
     meta=probe(p);duration=meta['duration'];save(job,{'source_id':sid,'meta':meta,'stage':'Finding moments','phase':'analyze','progress':.1})
     game_name,game_tags=detect_game();chat_sig=chat_ready()
@@ -882,7 +882,7 @@ def restore_frozen(job:str,index:int,body:dict):
   child=start_make(settings)['job']
   restored=dict(batch.get('restored') or {})
   restored[str(index)]=child
-  app.neon['save'](job,{'restored':restored})
+  app.bloom['save'](job,{'restored':restored})
   return {'job':child}
 
 @app.post('/make/{job}/resume')
@@ -903,7 +903,7 @@ def resume_make(job:str):
   if previous.get('plan') and not (DATA/previous['plan']['media']).is_file():
    raise HTTPException(409,'The cached source is missing. Start a new batch.')
   started=start_make(previous['request'],previous)
-  app.neon['save'](job,{'resumed_as':started['job']})
+  app.bloom['save'](job,{'resumed_as':started['job']})
   return started
 
 @app.get('/make/{job}')
@@ -1009,7 +1009,7 @@ def update_apply():
 def runtime():
  return {'active':[{'id':job,'status':row.get('status'),'stage':row.get('stage') or row.get('message','')} for job,row in list(state.items()) if row.get('status') in ('running','queued','starting','recording')]}
 from reedit import attach as attach_reedit
-attach_reedit(app,DATA,state,probe,export,app.neon['save'])
+attach_reedit(app,DATA,state,probe,export,app.bloom['save'])
 
 import bundles
 import editor_export;editor_export.attach(app,DATA,probe)

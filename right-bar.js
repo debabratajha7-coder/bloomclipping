@@ -38,7 +38,7 @@
       pane.innerHTML = '<div class="rb-styles">' + STYLES.map(([k, n]) => '<button type="button" class="rb-style' + (curStyle() === k ? ' on' : '') + '" data-style="' + k + '"><canvas width="132" height="46" data-demo="' + k + '"></canvas><small>' + n + '</small></button>').join('') + '</div>' +
         '<h4>Position</h4><div class="rb-row">' + POS.map(([n, v]) => chip('data-pos="' + v + '"', n, Math.abs(Number(cur('caption-y')) - v) < 200 && !(v === 1450 && Number(cur('caption-y')) < 1200) && !(v === 520 && Number(cur('caption-y')) > 700))).join('') + '</div>' +
         '<label class="rb-chk"><input type="checkbox" data-cb="captions"' + (cur('captions') ? ' checked' : '') + '> Captions on</label>';
-      pane.querySelectorAll('canvas[data-demo]').forEach(c => { const x = c.getContext('2d'); x.fillStyle = '#0a0a0f'; x.fillRect(0, 0, c.width, c.height); if (window.NeonCaption) window.NeonCaption.draw(x, { style: c.dataset.demo, words: ['YOUR', 'STORY'], active: 1, cx: c.width / 2, cy: c.height / 2, fs: 17, maxW: c.width - 10 }); });
+      pane.querySelectorAll('canvas[data-demo]').forEach(c => { const x = c.getContext('2d'); x.fillStyle = '#0a0a0f'; x.fillRect(0, 0, c.width, c.height); if (window.BloomCaption) window.BloomCaption.draw(x, { style: c.dataset.demo, words: ['YOUR', 'STORY'], active: 1, cx: c.width / 2, cy: c.height / 2, fs: 17, maxW: c.width - 10 }); });
     } else if (tab === 'layout') {
       pane.innerHTML = '<div class="rb-lays">' + LAYOUTS.map(([k, n]) => '<button type="button" class="rb-lay' + (curLayout() === k ? ' on' : '') + '" data-layout="' + k + '">' + layoutSvg(k) + '<small>' + n + '</small></button>').join('') + '</div>';
     } else if (tab === 'heading') {
@@ -104,8 +104,8 @@
       '<div class="rb-tabs" id="rb-tabs">' + [['caption', 'Aa Caption'], ['layout', '▦ Layout'], ['heading', '✦ Heading'], ['output', '⚙ Output']].map(([k, n]) => '<button type="button" data-tab="' + k + '">' + n + '</button>').join('') + '</div>' +
       '<div class="rb-pane" id="rb-pane"></div></div>';
     document.body.append(bar);
-    try { open = localStorage.getItem('neon-rightbar') !== '0' && window.innerWidth > 1280; } catch (e) { /* ignore */ }
-    const set = on => { document.body.classList.toggle('rb-open', on); $('rb-toggle').textContent = on ? '▶' : '◀'; try { localStorage.setItem('neon-rightbar', on ? '1' : '0'); } catch (e) { /* ignore */ } };
+    try { open = localStorage.getItem('bloom-rightbar') !== '0' && window.innerWidth > 1280; } catch (e) { /* ignore */ }
+    const set = on => { document.body.classList.toggle('rb-open', on); $('rb-toggle').textContent = on ? '▶' : '◀'; try { localStorage.setItem('bloom-rightbar', on ? '1' : '0'); } catch (e) { /* ignore */ } };
     set(open);
     $('rb-toggle').onclick = () => set(!document.body.classList.contains('rb-open'));
     bar.addEventListener('click', e => {

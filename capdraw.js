@@ -65,7 +65,7 @@
     ctx.restore();
   }
 
-  window.NeonCaption = { draw, drawHeading, LOOKS };
+  window.BloomCaption = { draw, drawHeading, LOOKS };
 
   // ---- replace the page's two preview painters (they use app.js globals: pc, v, still, words, layout, layoutSpecs, style, signature, wordRange)
   window.captionPreview = function () {

@@ -200,7 +200,7 @@ function showResultsOverview(batch, job) {
 async function showMake(resumeId){const url=$('url').value.trim();if(!resumeId&&!url&&!id){status('Paste a video link or upload a file first.');return;}
  const b=$('make');b.disabled=true;$('make-results').hidden=false;$('make-results').querySelector('.star-ask')?.remove();$('make-grid').replaceChildren();$('make-overview').hidden=true;$('make-progress').style.width='2%';$('make-steps').innerHTML=makeStepsMarkup('source');
  try{const {job}=resumeId?await request('/make/'+resumeId+'/resume',{}):await request('/make',{...(url?{url}:{id}),count:Number($('count').value),mode:$('mode').value,source_height:Number(($('srcq')||{}).value)||1080,accurate:$('accurate').value,min_len:Number($('minlen').value),max_len:Number($('length').value),layout:makeLayout(),aspect:$('aspect').value,resolution:Number($('resolution').value),fps:Number($('fps').value),cam:rect.cam,game:rect.game,top:Number($('top').value)/100,caption_style:style,language:$('language').value==='auto'?'':$('language').value,...(()=>{const pe=$('part-end')&&$('part-end').value.trim();if(!pe)return {};const a0=hms($('part-start').value||'0'),b0=hms(pe);return b0>a0?{from_s:a0,to_s:b0}:{};})()});
-  localStorage.setItem('neon-last-make',job);refreshResume();
+  localStorage.setItem('bloom-last-make',job);refreshResume();
   const shown=new Set();
   for(;;){const s=await request('/make/'+job);$('make-status').textContent=(s.stage||s.status)+' · '+Math.round((s.progress||0)*100)+'%';$('make-progress').style.width=Math.max(2,(s.progress||0)*100)+'%';$('make-steps').innerHTML=makeStepsMarkup(s.phase);
    (s.clips||[]).forEach(c=>{if(shown.has(c.file))return;shown.add(c.file);const d=document.createElement('div');d.className='mk';d.dataset.file=c.file;d.dataset.review=clipReady(c)?'ready':'review';
@@ -213,7 +213,7 @@ async function showMake(resumeId){const url=$('url').value.trim();if(!resumeId&&
    if(s.status==='error')throw Error(s.error);if(s.status==='done'){showResultsOverview(s,job);if(!(s.clips||[]).length){$('make-status').textContent=s.stage||'No moments matched. Broaden your filters and try again.';break;}$('make-status').textContent='Done · '+(s.clips||[]).length+' clips in '+s.elapsed_seconds+'s · also in My clips ('+(s.engine||'')+')';break;}
    await sleep(1000);}}catch(e){$('make-status').textContent=e.message;}finally{b.disabled=false;refreshResume();}}
 $('make').onclick=()=>showMake(null);
-async function refreshResume(){const job=localStorage.getItem('neon-last-make');const button=$('resume-make');button.hidden=true;if(!job)return;try{const row=await request('/make/'+job);button.hidden=!row.can_resume;button.onclick=()=>showMake(job);}catch{}}
+async function refreshResume(){const job=localStorage.getItem('bloom-last-make');const button=$('resume-make');button.hidden=true;if(!job)return;try{const row=await request('/make/'+job);button.hidden=!row.can_resume;button.onclick=()=>showMake(job);}catch{}}
 refreshResume();
 
 const PRESETS={tl:{cam:{x:0,y:0,w:.24,h:.32},game:{x:.24,y:0,w:.76,h:1}},tr:{cam:{x:.76,y:0,w:.24,h:.32},game:{x:0,y:0,w:.76,h:1}},

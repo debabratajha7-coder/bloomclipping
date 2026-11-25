@@ -1,21 +1,21 @@
 BloomClipping
 Copyright (c) 2026 Bloom
 
-This software is a fork / modified version of NeonClipping.
-Original work: NeonClipping
-Copyright (c) 2026 Ajay K Meena
-Source: https://github.com/iamajmeena/neonclipping
+Licensed under the GNU Affero General Public License, version 3 (AGPL-3.0). See LICENSE.
 
-BloomClipping is licensed under the GNU Affero General Public License, version 3 (AGPL-3.0). See LICENSE.
+Quiet upstream credit (AGPL): includes work originally published by Ajay K Meena
+(https://github.com/iamajmeena/neonclipping), Copyright (c) 2026.
 
-You may use, study, change and share this software. If you distribute a modified version, or let other people use a modified version over a network (for example as a website or hosted service), you must provide the complete corresponding source code under AGPL-3.0.
-
-"BloomClipping" is the brand name of this fork. The AGPL covers the code, not the right to present another product as NeonClipping.
+You may use, study, change and share this software. If you distribute a modified version,
+or let other people use a modified version over a network, you must provide the complete
+corresponding source code under AGPL-3.0.
 
 ------------------------------------------------------------------------------------------------------------------------------
-Third-party code (carried from upstream NeonClipping NOTICE)
+Third-party code
 
-Parts of capfix.py, thought.py, games.py, frozen.py, wholepass.py and smart.py (post_extras) are adapted from PeakCut
-(studio/brain.py, studio/games.py, studio/quality.py), MIT License, Copyright (c) 2026 PeakCut contributors.
+Parts of capfix.py, thought.py, games.py, frozen.py, wholepass.py and smart.py (post_extras)
+are adapted from PeakCut (studio/brain.py, studio/games.py, studio/quality.py),
+MIT License, Copyright (c) 2026 PeakCut contributors.
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of that Software.
+The above copyright notice and this permission notice shall be included in all copies
+or substantial portions of that Software.

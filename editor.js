@@ -55,7 +55,7 @@
   const thumbs = new Map();
   const snap = () => JSON.stringify(st);
   const dirty = () => original !== null && snap() !== original;
-  const draftKey = () => 'neon-editor-draft-' + file;
+  const draftKey = () => 'bloom-editor-draft-' + file;
   function draftSave() { try { if (dirty()) localStorage.setItem(draftKey(), snap()); else localStorage.removeItem(draftKey()); } catch (e) { /* ignore */ } }
   function commit(change) { undo.push(snap()); if (undo.length > 80) undo.shift(); redo = []; change(); afterChange(); }
   function jump(stack, other) { if (!stack.length) return; other.push(snap()); st = JSON.parse(stack.pop()); vt = Math.min(vt, length()); afterChange(); }

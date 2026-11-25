@@ -1,7 +1,7 @@
 // Project-scoped edit decisions are stored locally. The review player opens the actual export.
 (() => {
   const el = name => document.getElementById('studio-' + name);
-  const key = 'neon-timeline-draft-v1';
+  const key = 'bloom-timeline-draft-v1';
   const note = text => { el('note').textContent = text; };
   let rows = [], selected = 0, undo = [], redo = [], revision = 0;
   try { const saved = JSON.parse(localStorage.getItem(key)); if (Array.isArray(saved)) rows = saved; } catch {}

@@ -41,8 +41,8 @@
     el('b', { textContent: title }), el('b', { textContent: titleHi, className: 'rp-hi', lang: 'hi' }), ...body);
 
   const ghCard = card('rp-safe', 'GitHub issue (optional)', 'GitHub पर रिपोर्ट (वैकल्पिक)',
-      en('Only shown when a BloomClipping issues repo is configured. Never opens the upstream NeonClipping project.'),
-      hi('सिर्फ़ तब दिखता है जब BloomClipping का अपना issues repo सेट हो। NeonClipping पर नहीं खुलता।'),
+      en('Only shown when a BloomClipping issues repo is configured.'),
+      hi('सिर्फ़ तब दिखता है जब BloomClipping का अपना issues repo सेट हो।'),
       issueA);
   ghCard.hidden = true;
 
@@ -71,7 +71,7 @@
       const j = await r.json();
       diag.value = j.diagnostics;
       const url = (j.issue_url || '').trim();
-      const okGh = url.startsWith('https://github.com/') && !/neonclipping|iamajmeena/i.test(url);
+      const okGh = url.startsWith('https://github.com/') && /github\.com\/debabratajha7-coder\/bloomclipping/i.test(url);
       ghCard.hidden = !okGh;
       issueA.href = okGh ? url : '#';
       issueA.style.pointerEvents = okGh ? '' : 'none';

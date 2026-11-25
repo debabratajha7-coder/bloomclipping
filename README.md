@@ -8,7 +8,7 @@ BloomClipping turns long YouTube / Twitch / Kick videos (or your own MP4) into v
 
 🌐 **Repo:** <https://github.com/debabratajha7-coder/bloomclipping>
 
-**Made by [@bloomgtavi](https://instagram.com/bloomgtavi).** BloomClipping is an AGPL-3.0 fork of [NeonClipping](https://github.com/iamajmeena/neonclipping) — see [NOTICE](NOTICE). If it saves you time, please ⭐ star the repo and follow [@bloomgtavi](https://instagram.com/bloomgtavi) on Instagram.
+**Made by [@bloomgtavi](https://instagram.com/bloomgtavi).** BloomClipping is AGPL-3.0 open-source — see [LICENSE](LICENSE) and [NOTICE](NOTICE). If it saves you time, please ⭐ star the repo and follow [@bloomgtavi](https://instagram.com/bloomgtavi) on Instagram.
 
 **Clip an 85-minute stream in 97 seconds, 100% locally, with zero API cost.** (measured, see [How it finds good moments](#how-it-finds-good-moments))
 
@@ -30,7 +30,7 @@ BloomClipping turns long YouTube / Twitch / Kick videos (or your own MP4) into v
 
 ![UI](docs/bloomclipping-ui.jpg)
 
-📘 **Guides (Hindi + English, PDF):** [English](docs/NeonClipping-Guide-English.pdf) · [हिंदी](docs/NeonClipping-Guide-Hindi.pdf)  
+📘 **Guides (Hindi + English, PDF):** [English](docs/BloomClipping-Guide-English.pdf) · [हिंदी](docs/BloomClipping-Guide-Hindi.pdf)  
 🤖 **Let an AI agent install it for you:** copy [docs/BLOOMCLIPPING-AGENT-SETUP-PROMPT.txt](docs/BLOOMCLIPPING-AGENT-SETUP-PROMPT.txt) into Claude Code, Codex CLI or Cursor.
 
 ## How it finds good moments
@@ -319,7 +319,7 @@ A slow PC without a GPU can use a cloud model instead of Ollama for scoring mome
 
 ### Local MCP connector
 
-Start BloomClipping, then configure your MCP client with command `uv` and arguments `run`, `--script`, and the absolute path to `neon_mcp.py`. The stdio connector uses the local server on port 8770 (override with BLOOMCLIPPING_PORT). It provides create_clips, batch_status, resume_batch, list_clips, export_clip and download_clip. Downloads are written to your Downloads/BloomClipping folder.
+Start BloomClipping, then configure your MCP client with command `uv` and arguments `run`, `--script`, and the absolute path to `bloom_mcp.py`. The stdio connector uses the local server on port 8770 (override with BLOOMCLIPPING_PORT). It provides create_clips, batch_status, resume_batch, list_clips, export_clip and download_clip. Downloads are written to your Downloads/BloomClipping folder.
 
 
 ### Timeline studio and batch recovery

@@ -78,15 +78,21 @@ import os as _os
 
 
 def _apply_saved_data_folder():
-    """neon_paths.json (written by the Storage panel) selects another data folder; the environment variable still wins."""
+    """bloom_paths.json (written by the Storage panel) selects another data folder; the environment variable still wins."""
     import json
     from pathlib import Path
     if _os.environ.get('BLOOMCLIPPING_DATA_DIR'):
         return
     try:
-        value = json.loads((Path(__file__).resolve().parent / 'neon_paths.json').read_text(encoding='utf-8')).get('data_dir')
-        if value and Path(value).is_absolute():
-            _os.environ['BLOOMCLIPPING_DATA_DIR'] = value
+        root = Path(__file__).resolve().parent
+        for name in ('bloom_paths.json', 'neon_paths.json'):
+            p = root / name
+            if not p.is_file():
+                continue
+            value = json.loads(p.read_text(encoding='utf-8')).get('data_dir')
+            if value and Path(value).is_absolute():
+                _os.environ['BLOOMCLIPPING_DATA_DIR'] = value
+                break
     except Exception:       # noqa: BLE001 - a broken settings file must never stop the app
         pass
 

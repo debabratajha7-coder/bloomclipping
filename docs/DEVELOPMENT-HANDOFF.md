@@ -1,6 +1,6 @@
 # Native layout and saved-edit update — 19 November 2026
 
-BloomClipping keeps its own neon interface and independent engine. Competitor reference applications are not required, started or linked by the product.
+BloomClipping keeps its own interface and independent engine. Competitor reference applications are not required, started or linked by the product.
 
 ## Shipped changes
 

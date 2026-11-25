@@ -36,7 +36,7 @@ def row(a, en, hi):
 pages = []
 
 pages.append(f'''<section class="page cover"><div class="sun"></div><div class="grid"></div>
-<div class="txt"><div class="kicker">OPEN-SOURCE CLIP ENGINE</div><h1>NEON<br><em>CLIPPING</em></h1>
+<div class="txt"><div class="kicker">OPEN-SOURCE CLIP ENGINE</div><h1>BLOOM<br><em>CLIPPING</em></h1>
 <p>Paste a link. Get captioned 9:16 clips in about two minutes. Free. On your computer.<br><span class="hi">लिंक पेस्ट करो। दो मिनट में कैप्शन वाली 9:16 क्लिप पाओ। फ्री। आपके अपने कंप्यूटर पर।</span></p>
 <p style="margin-top:8mm"><span class="chip">★ Star on GitHub</span><span class="chip ig">Follow @bloom</span></p><p style="font-size:11pt">{GH}</p></div>
 <div class="by">Made by <span>Bloom</span> · Instagram @bloom · English + हिंदी guide</div></section>''')

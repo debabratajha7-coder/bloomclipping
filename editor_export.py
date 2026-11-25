@@ -44,7 +44,7 @@ def video_format(parent, width, height, fps):
 
 def interchange(folder, title, width, height, fps, frames, with_audio):
     root = ET.Element("xmeml", version="5")
-    sequence = node(root, "sequence", id="neon-timeline")
+    sequence = node(root, "sequence", id="bloom-timeline")
     node(sequence, "name", title)
     node(sequence, "duration", frames)
     rate(sequence, fps)

@@ -4,7 +4,6 @@ GOAL: do EVERYTHING yourself, from start to finish, until BloomClipping is open 
 
 WHAT IT IS, AND MY PERMISSION
 BloomClipping is free, open-source software (AGPL-3.0 licence): https://github.com/debabratajha7-coder/bloomclipping
-It is a fork of NeonClipping (https://github.com/iamajmeena/neonclipping) — keep NOTICE / LICENSE attribution.
 It turns a long YouTube / Twitch / Kick video or an MP4 into captioned vertical clips. It runs only on my own computer at http://127.0.0.1:8770, needs no account, and nothing is uploaded.
 I give you permission, now, for all of this: install the free tools listed below with the normal package manager (winget, brew, apt), download the app, create its Python environment, install its packages, start it, create its Desktop / Start Menu shortcut, and open it in my browser. Do not ask me again for any of these. This is a normal software install that I asked for.
 Ask me only when a window on my screen needs my click (an installer or an admin "Yes" prompt). Nothing else.
@@ -23,6 +22,7 @@ HOW YOU WORK (you can run commands)
 - Do not stop half way to ask "shall I continue?". Keep going until the app is open in my browser.
 - Never ask for passwords. Never turn off antivirus, firewall or security settings. API keys are never typed into this chat: the app has its own Settings window.
 - Prefer Python 3.12 (3.10–3.13 only). Do NOT use Python 3.14+ — packages often fail.
+- Branding: call the product BloomClipping only. Do not mention any other clipper brand name.
 
 STEP 1. WINDOWS: ONE COMMAND DOES EVERYTHING (use this first)
   powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/debabratajha7-coder/bloomclipping/main/install.ps1 -OutFile $env:TEMP\bc-install.ps1; & $env:TEMP\bc-install.ps1"
@@ -64,7 +64,7 @@ STEP 8. EXPLAIN IT TO ME SIMPLY (short Hinglish bullets)
 1. Kya install hua aur kahan (folder).
 2. Agli baar: Desktop / Start Menu / run.sh se BloomClipping. Band karna: uski window / process band karo.
 3. Clip banana: link paste karo ya MP4 upload karo -> Fast / Balanced / Best chuno -> Make clips.
-4. Settings mein System status, free AI key, shortcut.
+4. Settings mein System status, free AI key, shortcut. Plans mein Free (5 credits) ya paid plans.
 5. Honest limits: lambi YouTube video sabse fast; Twitch/MP4 dheemi; AI 100% perfect nahi, post se pehle clip dekh lo.
 
 FINAL REPORT

@@ -33,7 +33,7 @@ class UpdaterTests(unittest.TestCase):
         (self.root / 'requirements.txt').write_text('a\n', encoding='utf-8')
         (self.root / 'data').mkdir()
         (self.root / 'data' / 'keep.txt').write_text('mine', encoding='utf-8')
-        (self.root / '.neon_version').write_text(SHA_OLD, encoding='utf-8')
+        (self.root / '.bloom_version').write_text(SHA_OLD, encoding='utf-8')
         updater._latest.update(sha='', at=0.0)
         updater._state.update(stage='', error='', running=False, done=False)
 

@@ -2,7 +2,7 @@
 # requires-python = ">=3.10"
 # dependencies = ["mcp>=1.12,<2"]
 # ///
-"""Local stdio MCP connector. Run with uv run --script neon_mcp.py."""
+"""Local stdio MCP connector. Run with uv run --script bloom_mcp.py."""
 import json
 import os
 import re

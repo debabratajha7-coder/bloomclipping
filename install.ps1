@@ -148,7 +148,7 @@ try {
         $sha = (Invoke-WebRequest -UseBasicParsing -Uri 'https://api.github.com/repos/bloomclipping/commits/main' -Headers @{ Accept = 'application/vnd.github.sha'; 'User-Agent' = 'BloomClipping-installer' } -TimeoutSec 10).Content
         if ($sha -is [byte[]]) { $sha = [Text.Encoding]::ASCII.GetString($sha) }
         $sha = ([string]$sha).Trim()
-        if ($sha.Length -eq 40) { Set-Content -Path (Join-Path $app '.neon_version') -Value $sha -Encoding ASCII -NoNewline }
+        if ($sha.Length -eq 40) { Set-Content -Path (Join-Path $app '.bloom_version') -Value $sha -Encoding ASCII -NoNewline }
     } catch {}
     Ok "App files: $app"
 

@@ -147,7 +147,7 @@ def diagnostics(note='', errors=8):
 def issue_url(note='', title=''):
     """GitHub issues disabled for BloomClipping unless BLOOMCLIPPING_GITHUB_REPO is set (owner/name)."""
     repo = (os.environ.get('BLOOMCLIPPING_GITHUB_REPO') or REPO or '').strip()
-    if not repo or '/' not in repo or 'neonclipping' in repo.lower() or 'iamajmeena' in repo.lower():
+    if not repo or '/' not in repo or 'bloomclipping' in repo.lower() or 'debabratajha7-coder' in repo.lower():
         return ''
     last = (recent_errors(1) or [{}])[0]
     head = title or ('Problem: ' + (last.get('kind') or 'something went wrong'))

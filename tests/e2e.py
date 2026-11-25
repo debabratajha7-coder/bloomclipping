@@ -298,7 +298,7 @@ def g_feedback():
     global BASE
     g = 'feedback'
     previous_base=BASE
-    with tempfile.TemporaryDirectory(prefix='neon-feedback-') as directory:
+    with tempfile.TemporaryDirectory(prefix='bloom-feedback-') as directory:
         data=Path(directory)
         with socket.socket() as reservation:
             reservation.bind(('127.0.0.1',0));port=reservation.getsockname()[1]

@@ -1,7 +1,7 @@
 """In-app updates from GitHub, so people who already installed BloomClipping get new versions without running the installer again.
 
 How it works
-  * The installed version is the commit id in `.neon_version` (written by the installer and by this updater). A git checkout is
+  * The installed version is the commit id in `.bloom_version` (written by the installer and by this updater). A git checkout is
     never touched: developers update with git.
   * The newest version is the head commit of the `main` branch on GitHub (one small request, cached, offline-safe).
   * Updating downloads the repository zip, replaces the program files and keeps your data (data/, models/, .venv, cache/,
@@ -15,7 +15,7 @@ import io, os, shutil, subprocess, sys, threading, time, urllib.request, zipfile
 REPO = 'bloomclipping'
 API = f'https://api.github.com/repos/{REPO}/commits/main'
 ZIP = f'https://codeload.github.com/{REPO}/zip/refs/heads/main'
-KEEP = {'data', 'models', '.venv', 'venv', 'cache', '__pycache__', '.git', '.update-backup', '.neon_version', 'server.log',
+KEEP = {'data', 'models', '.venv', 'venv', 'cache', '__pycache__', '.git', '.update-backup', '.bloom_version', 'server.log',
         'server.stdout.log', 'server.stderr.log', 'server-error.log'}
 CACHE_SECONDS = 1800
 _lock = threading.Lock()
@@ -30,7 +30,7 @@ def _request(url, timeout=10, accept=None):
 
 def current(root):
     try:
-        return (Path(root) / '.neon_version').read_text(encoding='utf-8').strip()[:40]
+        return (Path(root) / '.bloom_version').read_text(encoding='utf-8').strip()[:40]
     except OSError:
         return ''
 
@@ -109,7 +109,7 @@ def _install(root, sha):
                            capture_output=True, text=True, timeout=1800, cwd=str(root))
         if r.returncode:
             raise RuntimeError('Packages could not be installed: ' + (r.stderr or r.stdout)[-300:])
-    (root / '.neon_version').write_text(sha, encoding='utf-8')
+    (root / '.bloom_version').write_text(sha, encoding='utf-8')
     _set(stage='Restarting BloomClipping...', done=True)
 
 

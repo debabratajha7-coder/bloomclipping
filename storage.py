@@ -216,7 +216,7 @@ def summary(data):
 
 # ---- choosing another data folder (read by compat.py at start-up, before anything uses the data folder)
 def settings_path(root):
-    return Path(root) / 'neon_paths.json'
+    return Path(root) / 'bloom_paths.json'
 
 
 def configured_folder(root):

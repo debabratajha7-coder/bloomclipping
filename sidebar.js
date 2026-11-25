@@ -186,6 +186,22 @@
       if (typeof window.openBloomSettings === 'function') window.openBloomSettings('system');
       else { const s = $('side-settings'); if (s) s.click(); }
     });
+    const vid = $('hero-video'), mute = $('hero-mute');
+    if (vid && mute) {
+      const sync = () => {
+        const muted = !!vid.muted;
+        mute.setAttribute('aria-pressed', muted ? 'true' : 'false');
+        mute.textContent = muted ? 'Unmute' : 'Mute';
+      };
+      mute.addEventListener('click', () => {
+        vid.muted = !vid.muted;
+        if (!vid.muted) vid.play().catch(() => {});
+        sync();
+      });
+      vid.addEventListener('volumechange', sync);
+      sync();
+      vid.play().catch(() => {});
+    }
   }
 
   if (document.readyState === 'complete') setTimeout(() => { init(); wireDrawer(); }, 400);

@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="color-scheme" content="dark"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BloomClipping</title><link rel="manifest" href="/app.webmanifest"><meta name="theme-color" content="#b8ff3c"><link rel="stylesheet" href="/assets/style.css?v=20261125-bloom1"><link rel="stylesheet" href="/assets/composer.css?v=20261125-bloom1"><link rel="stylesheet" href="/assets/right-bar.css?v=20261125-bloom1"><link rel="stylesheet" href="/assets/editor.css?v=20261125-bloom1"><link rel="stylesheet" href="/assets/modes.css?v=20261125-bloom1"><link rel="stylesheet" href="/assets/campaigns.css?v=20261125-bloom1"><link rel="stylesheet" href="/assets/youtube-feed.css?v=20261125-bloom1"><link rel="stylesheet" href="/assets/choppity-ui.css?v=20261125-brain4"></head><body>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="color-scheme" content="dark"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BloomClipping</title><link rel="manifest" href="/app.webmanifest"><meta name="theme-color" content="#b8ff3c"><link rel="stylesheet" href="/assets/style.css?v=20261125-bloom1"><link rel="stylesheet" href="/assets/composer.css?v=20261125-bloom1"><link rel="stylesheet" href="/assets/right-bar.css?v=20261125-bloom1"><link rel="stylesheet" href="/assets/editor.css?v=20261125-bloom1"><link rel="stylesheet" href="/assets/modes.css?v=20261125-bloom1"><link rel="stylesheet" href="/assets/campaigns.css?v=20261125-bloom1"><link rel="stylesheet" href="/assets/youtube-feed.css?v=20261125-bloom1"><link rel="stylesheet" href="/assets/choppity-ui.css?v=20261125-brain5"></head><body>
 <div id="nav-backdrop" class="nav-backdrop" hidden></div>
 <aside class="sidebar nav-drawer" id="nav-drawer" aria-hidden="true">
 <a class="brand" href="/"><span style="display:inline-grid;place-items:center;width:34px;height:34px;border-radius:10px;background:#111114;border:1px solid #27272a;color:#c8f53a;font-size:18px">✂</span> <div>bloomclipping<small>LOCAL CLIP STUDIO</small></div></a><div class="nav-label">WORKSPACE</div><button class="nav active" data-view="editor">◫ &nbsp; Create clips</button><button class="nav" data-view="library">▦ &nbsp; My clips <span id="library-count">0</span></button><button type="button" class="nav" data-view="youtube">&#9654; &nbsp; YouTube <span id="youtube-live-count" hidden></span></button><button type="button" class="nav" data-view="creators">&#9673; &nbsp; Creators</button><button type="button" class="nav" id="side-campaigns" aria-haspopup="dialog">&#127919; &nbsp; Campaigns</button><div class="side-supporters" id="supporters" hidden><div class="nav-label">SUPPORTERS</div><div id="supporters-list" class="supporters-list"></div></div><div class="side-note">● Your machine. Your clips.<p>Independent local processing.<br>No clipping subscription.</p></div><div class="signature">BUILT FOR THE NEXT HIGHLIGHT.<small>BloomClipping · local open-source</small></div>
@@ -10,12 +10,18 @@
   <a class="top-brand" href="/"><span class="top-mark">✂</span><b>bloomclipping</b></a>
   <button type="button" class="status-pill" id="status-pill" title="System status">System</button>
 </header>
-<main><header>
-  <div class="eyebrow">Local clip studio</div>
-  <div class="brand-hero">bloomclipping</div>
-  <div class="top"><h1>Turn long videos into <em>short viral clips</em> with AI.</h1></div>
-  <p class="hero-lead">Paste a link. Finds the best moments, crops to 9:16, and burns in captions — on your Mac.</p>
-  <a class="ig-handle" href="https://instagram.com/bloomgtavi" target="_blank" rel="noopener noreferrer" aria-label="Instagram @bloomgtavi">Instagram · @bloomgtavi</a>
+<main><header class="hero-block">
+  <div class="hero-copy">
+    <div class="eyebrow">Local clip studio</div>
+    <div class="brand-hero">bloomclipping</div>
+    <div class="top"><h1>Turn long videos into <em>short viral clips</em> with AI.</h1></div>
+    <p class="hero-lead">Paste a link. Finds the best moments, crops to 9:16, and burns in captions — on your Mac.</p>
+    <a class="ig-handle" href="https://instagram.com/bloomgtavi" target="_blank" rel="noopener noreferrer" aria-label="Instagram @bloomgtavi">Instagram · @bloomgtavi</a>
+  </div>
+  <div class="hero-media">
+    <video id="hero-video" src="/assets/hero.mp4?v=1" autoplay muted loop playsinline preload="metadata" aria-label="BloomClipping sample clip"></video>
+    <button type="button" class="hero-mute" id="hero-mute" aria-pressed="true" aria-controls="hero-video">Unmute</button>
+  </div>
 </header><div class="readiness" id="readiness" role="status" aria-label="System check" hidden></div><section id="editor-view">
 <section class="panel import-panel">
 <div class="section-head"><h2>Paste a link</h2><label class="upload">Upload video<input id="file" type="file" accept="video/*" hidden></label></div>
@@ -136,4 +142,4 @@
   </section>
 </section>
 </main><script src="/assets/app.js?v=20261125-brain2"></script>
-<script src="/assets/extras.js?v=20261124-time1"></script><script src="/assets/transcripts.js?v=20261121-src6"></script><script src="/assets/vision.js?v=20261121-src6"></script><script src="/assets/studio.js?v=20261124-2"></script><script src="/assets/composer.js?v=20261125-brain1"></script><script src="/assets/sidebar.js?v=20261125-brain2"></script><script src="/assets/library.js?v=20261124-r11"></script><script src="/assets/capdraw.js?v=20261124-r21"></script><script src="/assets/right-bar.js?v=20261124-r25"></script><script src="/assets/editor.js?v=20261124-r32"></script><script src="/assets/modes.js?v=20261125-shell2"></script><script src="/assets/campaigns.js?v=20261125-bloom1"></script><script src="/assets/youtube-feed.js?v=20261124-r2"></script></body></html>
+<script src="/assets/extras.js?v=20261124-time1"></script><script src="/assets/transcripts.js?v=20261121-src6"></script><script src="/assets/vision.js?v=20261121-src6"></script><script src="/assets/studio.js?v=20261124-2"></script><script src="/assets/composer.js?v=20261125-brain1"></script><script src="/assets/sidebar.js?v=20261125-brain5"></script><script src="/assets/library.js?v=20261124-r11"></script><script src="/assets/capdraw.js?v=20261124-r21"></script><script src="/assets/right-bar.js?v=20261124-r25"></script><script src="/assets/editor.js?v=20261124-r32"></script><script src="/assets/modes.js?v=20261125-shell2"></script><script src="/assets/campaigns.js?v=20261125-bloom1"></script><script src="/assets/youtube-feed.js?v=20261124-r2"></script></body></html>

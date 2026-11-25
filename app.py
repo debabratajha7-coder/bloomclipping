@@ -80,7 +80,7 @@ def cover_image(id:str):
  return FileResponse(path,media_type='image/jpeg')
 @app.get('/assets/{name}')
 def assets(name:str):
- if name not in ('app.js','style.css','choppity-ui.css','extras.js','transcripts.js','vision.js','report.js','studio.js','composer.js','composer.css','sidebar.js','library.js','right-bar.js','right-bar.css','editor.js','editor.css','capdraw.js','modes.js','modes.css','campaigns.js','campaigns.css','youtube-feed.js','youtube-feed.css'):raise HTTPException(404)
+ if name not in ('app.js','style.css','choppity-ui.css','extras.js','transcripts.js','vision.js','report.js','studio.js','composer.js','composer.css','sidebar.js','library.js','right-bar.js','right-bar.css','editor.js','editor.css','capdraw.js','modes.js','modes.css','campaigns.js','campaigns.css','youtube-feed.js','youtube-feed.css','hero.mp4'):raise HTTPException(404)
  return FileResponse(ROOT/name)
 @app.get('/text/{id}/{kind}')
 def text_file(id:str,kind:str):

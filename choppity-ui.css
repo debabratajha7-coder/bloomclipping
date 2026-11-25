@@ -232,10 +232,15 @@ html body .signature{color:var(--faint) !important}
 html body .signature small{color:var(--muted) !important}
 
 /* ===== Hero ===== */
+html body main>header.hero-block,
 html body main>header{
   position:relative;
+  display:grid !important;
+  grid-template-columns:minmax(0,1.05fr) minmax(180px,.72fr);
+  gap:28px;
+  align-items:center;
   margin:8px 0 20px !important;
-  padding:36px 32px 32px !important;
+  padding:28px 28px 28px 32px !important;
   background:
     linear-gradient(135deg, rgba(200,245,58,.05), transparent 42%),
     linear-gradient(180deg, #151518 0%, #101014 100%) !important;
@@ -247,6 +252,7 @@ html body main>header{
 }
 html body main>header::before,
 html body main>header::after{display:none !important}
+html body .hero-copy{min-width:0}
 html body .eyebrow{
   color:var(--faint) !important;
   letter-spacing:.18em !important;
@@ -298,6 +304,48 @@ html body main>header .ig-handle:hover{
   border-color:rgba(200,245,58,.45);
   color:var(--acid) !important;
   background:var(--acid-soft);
+}
+html body .hero-media{
+  position:relative;
+  justify-self:end;
+  width:min(100%,260px);
+  aspect-ratio:9/16;
+  background:#050506;
+  border:1px solid var(--line);
+  overflow:hidden;
+  clip-path:polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+html body .hero-media video{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  background:#000;
+}
+html body .hero-mute{
+  position:absolute;
+  right:10px;
+  bottom:10px;
+  z-index:2;
+  min-height:36px !important;
+  padding:8px 12px !important;
+  border-radius:8px !important;
+  border:1px solid rgba(255,255,255,.18) !important;
+  background:rgba(9,9,11,.72) !important;
+  color:var(--ink) !important;
+  font-size:12px !important;
+  font-weight:700 !important;
+  backdrop-filter:blur(8px);
+}
+html body .hero-mute:hover{
+  border-color:rgba(200,245,58,.45) !important;
+  color:var(--acid) !important;
+  background:rgba(9,9,11,.88) !important;
+}
+html body .hero-mute[aria-pressed="false"]{
+  border-color:rgba(200,245,58,.5) !important;
+  color:var(--acid-ink) !important;
+  background:var(--acid) !important;
 }
 
 /* ===== Panels ===== */
@@ -706,7 +754,16 @@ html body .qs em{color:var(--acid) !important}
   html body h1{font-size:28px !important; max-width:none}
   html body .brand-hero{font-size:42px}
   html body main{padding:18px 14px 90px !important}
-  html body main>header{padding:24px 20px !important}
+  html body main>header.hero-block,
+  html body main>header{
+    grid-template-columns:1fr !important;
+    padding:22px 18px !important;
+    gap:18px;
+  }
+  html body .hero-media{
+    justify-self:center;
+    width:min(220px,70vw);
+  }
   html body .search-rail{flex-direction:column; align-items:stretch}
   html body .search-rail .primary.make{width:100%; justify-content:center}
   html body .mt-row{grid-template-columns:1fr}

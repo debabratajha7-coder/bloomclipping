@@ -1,0 +1,32 @@
+{
+  "updated": "2026-11-24",
+  "platforms": [
+    {
+      "id": "contentrewards",
+      "name": "Content Rewards",
+      "referral_url": "https://contentrewards.com/r/bloom",
+      "action": "Join Content Rewards",
+      "pays": "Per approved view, per post, retainers or pools",
+      "payout": "Via Whop",
+      "good_for": ["GTA", "Streams", "Podcasts"]
+    },
+    {
+      "id": "clipster",
+      "name": "Clipster",
+      "referral_url": "https://clipster.com/r/bloom",
+      "action": "Join Clipster",
+      "pays": "Per approved view or per post, depending on the brief",
+      "payout": "INR bank transfer (IMPS)",
+      "india": "Yes",
+      "min_payout": "$50 balance",
+      "good_for": ["UGC", "Music"]
+    },
+    {
+      "id": "100x-clipping",
+      "name": "100x Clipping",
+      "referral_url": "https://whop.com/nova-corp-c696/nova-model-influencer-promo?a=rockstaraj",
+      "action": "Join free network",
+      "note": "Free Clipper Network on Whop. Check each campaign brief for eligibility and payout details."
+    }
+  ]
+}

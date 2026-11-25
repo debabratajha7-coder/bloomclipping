@@ -1,0 +1,82 @@
+.mode-tiles{margin-top:12px}
+.mt-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+html body .mt{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;padding:12px 14px;border-radius:14px;cursor:pointer;background:#120e1c!important;border:1px solid #2b2140!important;color:#f6edfc!important;transition:border-color .15s,transform .15s}
+html body .mt:hover{transform:translateY(-1px);border-color:#5a3d78!important}
+html body .mt.on{border-color:#ff3d6e!important;background:linear-gradient(135deg,#ff3d6e26,#25f4ee14)!important;box-shadow:0 0 0 1px #ff3d6e55,0 8px 24px #ff3d6e22}
+.mt-ic{font-size:20px;line-height:1}.mt b{font-size:15px}.mt small{color:#b9a9cc;font-size:11.5px;line-height:1.35}
+.mt-foot{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+html body .mt-link{background:transparent!important;border:1px solid #2b2140!important;color:#d8cbe8!important;border-radius:99px;padding:5px 12px;font-size:12px;cursor:pointer}
+html body .mt-link i{font-style:normal;color:#ffd45a;margin-left:4px}
+html body .mt-link.key{border-color:#25f4ee66!important;color:#25f4ee!important}html body .mt-link.key small{color:#8fdcdc;margin-left:4px}
+html body .mt-link.key.ok{border-color:#9cff57!important;color:#9cff57!important}
+.mt-panel{margin-top:10px;padding:12px;border:1px solid #2b2140;border-radius:14px;background:#0d0a15}
+.mt-panel-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:10px}.mt-panel-head small{color:#9a8aac}
+.mt-feats{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px}
+html body .mf{position:relative;display:flex;flex-direction:column;gap:4px;text-align:left;padding:10px 12px 26px;border-radius:12px;cursor:pointer;background:#120e1c!important;border:1px solid #2b2140!important;color:#cdbfdd!important;opacity:.62}
+html body .mf.on{opacity:1;border-color:#25f4ee88!important;color:#f6edfc!important}
+html body .mf.own{box-shadow:inset 0 0 0 1px #ffd45a66}
+.mf-top{display:flex;align-items:center;justify-content:space-between;gap:6px}.mf small{font-size:11px;line-height:1.35;color:#a998bb}
+.ld{font-size:10px;padding:1px 7px;border-radius:99px;font-weight:700}.ld.l{background:#25f4ee22;color:#25f4ee}.ld.m{background:#ffd45a22;color:#ffd45a}.ld.h{background:#ff3d6e22;color:#ff7a9c}
+.mf-sw{position:absolute;left:12px;bottom:7px;font-size:10px;font-weight:800;letter-spacing:.08em;color:#6c5c80}.mf.on .mf-sw{color:#25f4ee}
+.key-dialog{max-width:640px;width:calc(100% - 32px);background:#0f0b18;color:#f6edfc;border:1px solid #3a2a52;border-radius:18px;padding:18px}
+.key-dialog::backdrop{background:#05030aCC}
+.kd-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}.kd-head b{font-size:18px}
+.kd-ok{color:#9cff57;margin:6px 0}
+.kd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin:10px 0}
+html body .kd-p{display:flex;flex-direction:column;gap:4px;text-align:left;padding:10px 12px;border-radius:12px;background:#140f20!important;border:1px solid #2b2140!important;color:#f6edfc!important;cursor:pointer}
+html body .kd-p.on{border-color:#25f4ee!important;box-shadow:0 0 0 1px #25f4ee55}.kd-p small{color:#a998bb;font-size:11px;line-height:1.35}
+.kd-steps{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+.kd-step{display:flex;gap:10px}.kd-step>span{flex:none;width:26px;height:26px;border-radius:99px;background:#ff3d6e;color:#fff;display:grid;place-items:center;font-weight:800}
+.kd-step>div{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0}.kd-step small{color:#a998bb}
+.kd-step input,.kd-row input{width:100%;background:#0a0711;border:1px solid #2b2140;border-radius:10px;color:inherit;padding:8px 10px}
+.kd-go{align-self:flex-start;color:#25f4ee;border:1px solid #25f4ee66;border-radius:99px;padding:5px 12px;text-decoration:none}
+.kd-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.kd-list{display:flex;flex-wrap:wrap;gap:5px;max-height:120px;overflow:auto;font-size:12px;color:#a998bb}
+html body .kd-m{background:#140f20!important;border:1px solid #2b2140!important;color:#d8cbe8!important;border-radius:99px;padding:3px 9px;font-size:11px;cursor:pointer}
+@media(max-width:640px){.mt-row{grid-template-columns:1fr}}
+
+/* ---- calmer home screen (creator, 24 Nov: "cheezon ko cluttered mat rehne do") */
+html body main>header{padding:18px 24px 26px!important;margin-bottom:14px}
+html body main>header::before{height:22%!important;opacity:.55}
+html body main>header h1{font-size:34px!important;line-height:1.05;margin:4px 0 2px}
+html body main>header .top{align-items:center}
+html body main>header p{margin:4px 0 0;font-size:13px}
+html body .social a,html body .social button{font-size:11.5px!important;padding:5px 11px!important}
+html body .support-bar{margin-top:10px!important;padding:8px 12px!important;font-size:12px!important;gap:10px!important}
+html body .support-bar>span:first-child{flex:1 1 360px;min-width:0;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+html body .support-bar .don-big,html body .support-bar .star-big{padding:6px 12px!important;font-size:12px!important}
+html body .make-row{display:none!important}
+html body #frames:empty+label.toggle{display:none!important}
+.mt{padding:10px 12px!important}.mt small{font-size:11px}
+html body .mt-link.what{display:inline-flex;align-items:center;gap:6px}
+html body .mt-link.what.open{border-color:#25f4ee88!important;color:#fff!important}
+
+.st-tabs{display:flex;gap:6px;margin:6px 0 10px}html body .st-tabs button{background:#140f20!important;border:1px solid #2b2140!important;color:#d8cbe8!important;border-radius:99px;padding:6px 14px;cursor:pointer}html body .st-tabs button.on{border-color:#ff3d6e!important;color:#fff!important;background:#ff3d6e22!important}
+html body .import-note.quiet{display:none!important}
+
+/* viral score card: number, ready badge and the 4 parts (restored 24 Nov) */
+html body .viral .vr{font-size:10.5px;font-weight:700;padding:1px 8px;border-radius:99px;margin-left:6px}html body .viral .vr.ok{background:#9cff5722;color:#9cff57}html body .viral .vr.rv{background:#ffd45a22;color:#ffd45a}
+.vparts{display:grid;grid-template-columns:1fr 1fr;gap:3px 10px;margin-top:5px;width:100%}.vp{display:grid;grid-template-columns:64px 1fr 18px;align-items:center;gap:5px;font-size:10px;color:#b9a9cc}.vp i{font-style:normal}.vp em{display:block;height:5px;border-radius:9px;background:linear-gradient(90deg,#ff3d6e,#25f4ee)}.vp small{text-align:right;color:#f6edfc}
+
+/* Settings > Automation */
+.au-card{display:flex;flex-direction:column;gap:6px;padding:10px 12px;margin:8px 0;border:1px solid #2b2140;border-radius:12px;background:#0d0a15}
+.au-card small{color:#a998bb;line-height:1.4}.au-card input:not([type=checkbox]),.au-card textarea,.au-card select{background:#0a0711;border:1px solid #2b2140;border-radius:10px;color:inherit;padding:8px 10px;width:100%}
+.au-sw{display:flex;align-items:center;gap:8px;cursor:pointer}.au-sw input{width:auto}
+.vflag{display:inline-block;margin:4px 0 0;padding:2px 9px;border-radius:99px;background:#ff3d6e22;color:#ff7a9c;font-size:11px;font-weight:700}
+
+/* My clips cards: the button row wraps instead of stretching the whole page (found 24 Nov) */
+html body .clip-card{min-width:0;overflow:hidden}
+html body .clip-card .card-links{flex-wrap:wrap!important;gap:6px!important;min-width:0}
+html body .clip-card .card-links>*{flex:0 1 auto;min-width:0;max-width:100%}
+html body .clip-card .viral.lib{margin:6px 0 2px}
+html body .au-card .au-sw{flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;gap:8px}
+html body .au-card .au-sw input{width:auto!important;margin:0}
+html body .au-card .kd-row label{display:flex;flex-direction:row;align-items:center;gap:6px}
+
+/* first-run quick start (viewer comment 24 Nov: "bhot complex lgra hai") */
+.qs{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:0 0 12px;padding:10px 14px;border-radius:14px;background:linear-gradient(90deg,#ff3d6e1f,#25f4ee14);border:1px solid #ff3d6e55}
+.qs-steps{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-weight:700}
+.qs-steps span{display:inline-flex;align-items:center;gap:6px}.qs-steps b{width:22px;height:22px;border-radius:99px;background:#ff3d6e;color:#fff;display:grid;place-items:center;font-size:12px}
+.qs-steps i{color:#ff7a9c;font-style:normal}.qs-steps em{font-style:normal;color:#25f4ee}
+.qs small{flex:1 1 260px;color:#b9a9cc}
+html body .qs button{background:#ff3d6e!important;border-color:#ff3d6e!important;color:#fff!important;border-radius:99px;padding:5px 14px;font-weight:700;cursor:pointer}

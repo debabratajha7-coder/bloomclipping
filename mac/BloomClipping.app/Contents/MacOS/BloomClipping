@@ -1,0 +1,49 @@
+#!/bin/bash
+set -euo pipefail
+HERE="$(cd "$(dirname "$0")" && pwd)"
+RESOURCES="$(cd "$HERE/../Resources" && pwd)"
+if [ -f "$RESOURCES/app_home" ]; then
+  APP_HOME="$(tr -d '[:space:]' < "$RESOURCES/app_home")"
+else
+  APP_HOME="$HOME/BloomClipping/app"
+fi
+PORT="${BLOOMCLIPPING_PORT:-8770}"
+URL="http://127.0.0.1:${PORT}"
+LABEL="gui/$(id -u)/com.bloomclipping.app"
+LOG="$(dirname "$APP_HOME")/bloomclipping.log"
+PYTHON="${APP_HOME}/.venv/bin/python"
+
+ensure_server() {
+  if curl -fsS "${URL}/healthz" >/dev/null 2>&1; then return 0; fi
+  if launchctl print "$LABEL" >/dev/null 2>&1; then
+    launchctl kickstart -k "$LABEL" >/dev/null 2>&1 || true
+  elif [ -x "$PYTHON" ]; then
+    mkdir -p "$(dirname "$LOG")"
+    nohup "$PYTHON" -u "${APP_HOME}/app.py" >>"$LOG" 2>&1 &
+  else
+    osascript -e 'display alert "BloomClipping" message "Engine not found. Re-run mac/install-mac-app.sh from the BloomClipping folder."' >/dev/null 2>&1 || true
+    exit 1
+  fi
+  for _ in $(seq 1 40); do
+    if curl -fsS "${URL}/healthz" >/dev/null 2>&1; then return 0; fi
+    sleep 0.25
+  done
+  osascript -e 'display notification "Could not start the local engine." with title "BloomClipping"' >/dev/null 2>&1 || true
+  exit 1
+}
+
+open_window() {
+  if [ -d "/Applications/Google Chrome.app" ]; then
+    open -na "Google Chrome" --args --new-window --app="$URL" && return 0
+  fi
+  if [ -d "/Applications/Brave Browser.app" ]; then
+    open -na "Brave Browser" --args --new-window --app="$URL" && return 0
+  fi
+  if [ -d "/Applications/Microsoft Edge.app" ]; then
+    open -na "Microsoft Edge" --args --new-window --app="$URL" && return 0
+  fi
+  open "$URL"
+}
+
+ensure_server
+open_window

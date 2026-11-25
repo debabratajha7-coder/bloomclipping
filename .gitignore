@@ -49,9 +49,10 @@ __pycache__/
 !open.sh
 !choppity-ui.css
 !hero.mp4
-!billing.js
-!billing.py
+!mac/
+!mac/**
 !google_oauth.json.example
+!icon.iconset/
 !SECURITY.md
 !CHANGELOG.md
 
